@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Toolbar.Button.Bottom" parent="">
+        <item name="android:layout_width">25.6dp</item>
+        <item name="android:layout_height">20.75dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="Toolbar.Button.Text" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">12dp</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:fontFamily">@font/gilroy_medium</item>
+        <item name="android:textFontWeight">500</item>
+    </style>
+</resources>
