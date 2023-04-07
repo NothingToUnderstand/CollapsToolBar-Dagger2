@@ -16,4 +16,8 @@
     <string name="good_morning">Good morning!</string>
     <string name="your_daily_dose_of_subliminals_is_ready">Your daily dose of subliminals is ready</string>
     <string name="all_together">all together</string>
+    <string name="response_not_successful">response is not successful</string>
+    <string name="no_data">no data</string>
+    <string name="unknown_error">unknown_error</string>
+    <string name="server_not_responding">server not responding</string>
 </resources>

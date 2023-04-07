@@ -1,30 +1,38 @@
 package com.example.molfartask.presentation.subliminal.fragment
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.molfartask.R
 import com.example.molfartask.base.BaseViewModel
 import com.example.molfartask.data.entity.Record
 import com.example.molfartask.domain.Result
 import com.example.molfartask.domain.usecase.GetRecordsUseCase
-import com.example.molfartask.utils.ALL_TOGETHER
+import com.example.molfartask.utils.ErrorHandler
+import com.example.molfartask.utils.ResourceManager
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SubliminalViewModel @Inject constructor(
-    private val getRecordsUseCase: GetRecordsUseCase
-) : BaseViewModel() {
+    errorHandler: ErrorHandler,
+    private val getRecordsUseCase: GetRecordsUseCase,
+    private val resourceManager: ResourceManager
+) : BaseViewModel(errorHandler) {
 
     private var data: Result<List<Record>>? = null
     private val _filteredLiveData = MutableLiveData<Result<List<Record>>>()
     val filteredLiveData: LiveData<Result<List<Record>>> get() = _filteredLiveData
 
-    fun getRecords(context: Context, category: String? = null) {
+    fun getRecords(category: String? = null) {
         _filteredLiveData.value = Result.Loading()
-        viewModelScope.launch {
-            data = getRecordsUseCase.getRecords()
-            _filteredLiveData.value = data!!
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                data = getRecordsUseCase.getRecords()
+                _filteredLiveData.postValue(data!!)
+            } catch (t: Throwable) {
+                sendNotifier(t)
+            }
         }
         category?.let {
             filterRecordsByCategory(it)
@@ -37,7 +45,8 @@ class SubliminalViewModel @Inject constructor(
                 res is Result.Success
             }
             ?.data?.filter {
-                it.field.category.contains(category) || category == ALL_TOGETHER
+                it.field.category.contains(category) ||
+                        category == resourceManager.getString(R.string.all_together)
             }
 
         filteredList?.let { _filteredLiveData.value = Result.Success(it) }

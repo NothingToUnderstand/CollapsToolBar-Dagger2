@@ -43,6 +43,13 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding>(
         return inflate.invoke(inflater).also { _binding = it }.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.observeNotifierLiveData().observe(viewLifecycleOwner) {
+            makeToast(it)
+        }
+    }
+
     @CallSuper
     override fun onDestroy() {
         _binding = null

@@ -9,7 +9,6 @@ import com.example.molfartask.base.BaseFragment
 import com.example.molfartask.data.entity.Record
 import com.example.molfartask.databinding.FragmentSubliminalsBinding
 import com.example.molfartask.domain.Result
-import com.example.molfartask.utils.UNKNOWN_ERROR
 import com.example.molfartask.utils.scrollToPosition
 import com.google.android.material.chip.Chip
 import java.util.*
@@ -31,7 +30,7 @@ class SubliminalFragment : BaseFragment<SubliminalViewModel, FragmentSubliminals
 
         rvAdapter = SubliminalAdapter()
 
-        viewModel.getRecords(requireContext())
+        viewModel.getRecords()
 
         binding.rvRecyclerView.apply {
             adapter = rvAdapter
@@ -57,7 +56,7 @@ class SubliminalFragment : BaseFragment<SubliminalViewModel, FragmentSubliminals
         }
 
         srlSwipeRefresh.setOnRefreshListener {
-            viewModel.getRecords(requireContext(), category)
+            viewModel.getRecords(category)
             srlSwipeRefresh.isRefreshing = false
         }
 
@@ -97,13 +96,11 @@ class SubliminalFragment : BaseFragment<SubliminalViewModel, FragmentSubliminals
                         addChips(it)
                     }
                 }
-                is Result.NoData,
-                is Result.Error,
-                is Result.NoInternet -> {
+                is Result.NoData -> {
                     svScrollView.isVisible = false
                     rvRecyclerView.isVisible = false
                     pbLoading.isVisible = false
-                    makeToast(result.message ?: UNKNOWN_ERROR)
+                    result.message?.let { makeToast(it) }
                 }
             }
         }

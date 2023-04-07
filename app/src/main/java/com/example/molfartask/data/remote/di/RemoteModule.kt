@@ -5,6 +5,7 @@ import com.example.molfartask.data.remote.datasource.RemoteDataSource
 import com.example.molfartask.data.remote.datasource.RemoteDataSourceImpl
 import com.example.molfartask.data.remote.interceptor.HeaderInterceptor
 import com.example.molfartask.data.remote.interceptor.NetWorkExceptionInterceptor
+import com.example.molfartask.data.remote.interceptor.NotSuccessfulResponseInterceptor
 import com.example.molfartask.data.remote.repository.RemoteRepository
 import com.example.molfartask.data.remote.repository.RemoteRepositoryImpl
 import com.example.molfartask.data.remote.service.RemoteService
@@ -34,12 +35,14 @@ abstract class RemoteModule {
         @Singleton
         fun getOkHttpClient(
             headerInterceptor: HeaderInterceptor,
-            netWorkExceptionInterceptor: NetWorkExceptionInterceptor
+            netWorkExceptionInterceptor: NetWorkExceptionInterceptor,
+            notSuccessfulResponseInterceptor: NotSuccessfulResponseInterceptor
         ): OkHttpClient {
             return OkHttpClient
                 .Builder()
                 .addInterceptor(headerInterceptor)
                 .addInterceptor(netWorkExceptionInterceptor)
+                .addInterceptor(notSuccessfulResponseInterceptor)
                 .build()
         }
 

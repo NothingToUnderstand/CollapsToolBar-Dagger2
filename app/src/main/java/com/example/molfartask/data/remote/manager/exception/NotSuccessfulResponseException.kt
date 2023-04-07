@@ -4,8 +4,9 @@ import com.example.molfartask.R
 import com.example.molfartask.utils.ResourceManager
 import java.io.IOException
 
-class ServerNotRespondingException (
+class NotSuccessfulResponseException(
     private val resourceManager: ResourceManager
-) : IOException() {
+):IOException() {
     override val message: String
-        get() = resourceManager.getString(R.string.server_not_responding)}
+        get() = resourceManager.getString(R.string.response_not_successful)
+}
