@@ -6,10 +6,11 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.molfartask.R
 import com.example.molfartask.base.BaseFragment
-import com.example.molfartask.base.scrollToPosition
+import com.example.molfartask.data.entity.Record
 import com.example.molfartask.databinding.FragmentSubliminalsBinding
-import com.example.molfartask.entity.Record
-import com.example.molfartask.presentation.Result
+import com.example.molfartask.domain.Result
+import com.example.molfartask.utils.UNKNOWN_ERROR
+import com.example.molfartask.utils.scrollToPosition
 import com.google.android.material.chip.Chip
 import java.util.*
 
@@ -17,12 +18,6 @@ import java.util.*
 class SubliminalFragment : BaseFragment<SubliminalViewModel, FragmentSubliminalsBinding>(
     FragmentSubliminalsBinding::inflate
 ) {
-
-    companion object {
-        fun getInstance() = SubliminalFragment()
-        const val SUBLIMINAL_FRAGMENT_TAG = "SUBLIMINAL_FRAGMENT_TAG"
-    }
-
     private lateinit var rvAdapter: SubliminalAdapter
 
     override val viewModel: SubliminalViewModel by inject()
@@ -38,7 +33,7 @@ class SubliminalFragment : BaseFragment<SubliminalViewModel, FragmentSubliminals
 
         viewModel.getRecords(requireContext())
 
-        binding.recyclerView.apply {
+        binding.rvRecyclerView.apply {
             adapter = rvAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
@@ -61,29 +56,29 @@ class SubliminalFragment : BaseFragment<SubliminalViewModel, FragmentSubliminals
             makeToast(getString(R.string.coming_soon))
         }
 
-        swipeRefresh.setOnRefreshListener {
+        srlSwipeRefresh.setOnRefreshListener {
             viewModel.getRecords(requireContext(), category)
-            swipeRefresh.isRefreshing = false
+            srlSwipeRefresh.isRefreshing = false
         }
 
-        chipGroup.setOnCheckedStateChangeListener { group, _ ->
+        cpChips.setOnCheckedStateChangeListener { group, _ ->
             val chip = group.getChildAt(group.checkedChipId - 1) as Chip?
-            binding.scrollView.scrollToPosition<Chip>(chip?.id)
+            binding.svScrollView.scrollToPosition<Chip>(chip?.id)
             category = chip?.text.toString().lowercase(Locale.ROOT)
             viewModel.filterRecordsByCategory(category)
         }
 
         var isShow = true
         var scrollRange = -1
-        mainAppbar.addOnOffsetChangedListener { barLayout, verticalOffset ->
+        ablAppbar.addOnOffsetChangedListener { barLayout, verticalOffset ->
             if (scrollRange == -1) {
                 scrollRange = barLayout?.totalScrollRange!!
             }
             if (scrollRange + verticalOffset == 0) {
-                binding.upperToolbar.isVisible = true
+                binding.clUpperToolbar.isVisible = true
                 isShow = true
             } else if (isShow) {
-                binding.upperToolbar.isVisible = false
+                binding.clUpperToolbar.isVisible = false
                 isShow = false
             }
         }
@@ -95,21 +90,20 @@ class SubliminalFragment : BaseFragment<SubliminalViewModel, FragmentSubliminals
                 is Result.Loading -> pbLoading.isVisible = true
                 is Result.Success -> {
                     pbLoading.isVisible = false
-                    tvNoData.isVisible = false
-                    scrollView.isVisible = true
-                    recyclerView.isVisible = true
+                    svScrollView.isVisible = true
+                    rvRecyclerView.isVisible = true
                     result.data?.let {
                         rvAdapter.setData(it)
                         addChips(it)
                     }
                 }
-                is Result.Error -> {
-                    scrollView.isVisible = false
-                    recyclerView.isVisible = false
-                    tvNoData.apply {
-                        isVisible = true
-                        text = getString(R.string.error, result.message)
-                    }
+                is Result.NoData,
+                is Result.Error,
+                is Result.NoInternet -> {
+                    svScrollView.isVisible = false
+                    rvRecyclerView.isVisible = false
+                    pbLoading.isVisible = false
+                    makeToast(result.message ?: UNKNOWN_ERROR)
                 }
             }
         }
@@ -118,11 +112,11 @@ class SubliminalFragment : BaseFragment<SubliminalViewModel, FragmentSubliminals
     private fun addChips(records: List<Record>) {
         val categoriesSize = categories.size
         categories.add(getString(R.string.all_together))
-        records.forEach { categories.addAll(it.fields.categories) }
+        records.forEach { categories.addAll(it.field.category) }
         if (categoriesSize == categories.size) return
-        binding.chipGroup.removeAllViews()
+        binding.cpChips.removeAllViews()
         categories.forEach {
-            binding.chipGroup.addView(
+            binding.cpChips.addView(
                 Chip(
                     requireContext(),
                     null,
@@ -139,6 +133,10 @@ class SubliminalFragment : BaseFragment<SubliminalViewModel, FragmentSubliminals
 
     }
 
+    companion object {
+        fun getInstance() = SubliminalFragment()
+        const val SUBLIMINAL_FRAGMENT_TAG = "SUBLIMINAL_FRAGMENT_TAG"
+    }
 
 }
 

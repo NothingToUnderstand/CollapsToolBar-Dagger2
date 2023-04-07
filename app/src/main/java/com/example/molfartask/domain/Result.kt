@@ -1,4 +1,4 @@
-package com.example.molfartask.presentation
+package com.example.molfartask.domain
 
 sealed class Result<T>(
     val data: T? = null,
@@ -6,5 +6,7 @@ sealed class Result<T>(
 ) {
     class Success<T>(data: T?) : Result<T>(data)
     class Error<T>(message: String?) : Result<T>(message = message)
+    class NoInternet<T>(message: String?) : Result<T>(message = message)
+    class NoData<T>(message: String?) : Result<T>(message = message)
     class Loading<T> : Result<T>()
 }

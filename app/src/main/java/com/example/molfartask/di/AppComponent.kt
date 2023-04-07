@@ -2,7 +2,7 @@ package com.example.molfartask.di
 
 import com.example.molfartask.App
 import com.example.molfartask.di.viewmodel.ViewModelModule
-import com.example.molfartask.network.di.NetworkModule
+import com.example.molfartask.data.remote.di.RemoteModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -18,7 +18,7 @@ import javax.inject.Singleton
         ViewModelModule::class,
         AndroidSupportInjectionModule::class,
         AndroidInjectionModule::class,
-        NetworkModule::class
+        RemoteModule::class
     ]
 )
 interface AppComponent : AndroidInjector<App> {

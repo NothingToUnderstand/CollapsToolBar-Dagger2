@@ -10,7 +10,6 @@
     <string name="journal">Journal</string>
     <string name="image">image</string>
     <string name="no_internet_connection">No Internet Connection</string>
-    <string name="error">Error with %s</string>
     <string name="coming_soon">Coming in full version</string>
     <string name="button_info">button info</string>
     <string name="button_search">button search</string>

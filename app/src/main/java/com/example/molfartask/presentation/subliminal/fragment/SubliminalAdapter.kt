@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.molfartask.R
-import com.example.molfartask.entity.Record
+import com.example.molfartask.data.entity.Record
 
 class SubliminalAdapter : RecyclerView.Adapter<SubliminalViewHolder>() {
 
@@ -41,9 +41,9 @@ class SubliminalViewHolder(private val view: View) : RecyclerView.ViewHolder(vie
     private val image: ImageView = view.findViewById(R.id.image)
 
     fun bind(record: Record) {
-        title.text = record.fields.title
-        subtitle.text = record.fields.about
-        record.fields.image.firstOrNull()?.let {
+        title.text = record.field.title
+        subtitle.text = record.field.about
+        record.field.image.firstOrNull()?.let {
             Glide.with(view).load(it.url).into(image)
         }
     }
@@ -61,6 +61,6 @@ class SubliminalDiffUtilCallBack(
         oldList[oldItemPosition].id == newList[newItemPosition].id
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
-        oldList[oldItemPosition].fields == newList[newItemPosition].fields
+        oldList[oldItemPosition].field == newList[newItemPosition].field
 
 }

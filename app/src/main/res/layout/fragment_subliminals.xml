@@ -8,13 +8,13 @@
         tools:context=".presentation.subliminal.fragment.SubliminalFragment">
 
     <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/main_appbar"
+            android:id="@+id/abl_appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/main_collapsing"
+                android:id="@+id/ctl_collaps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="17dp"
@@ -55,7 +55,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/btn_info">
 
                     <TextView
-                            android:id="@+id/title"
+                            android:id="@+id/tv_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
@@ -66,7 +66,7 @@
                             android:text="@string/good_morning" />
 
                     <TextView
-                            android:id="@+id/subtitle"
+                            android:id="@+id/tv_subtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
@@ -82,7 +82,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/upperToolbar"
+            android:id="@+id/cl_upperToolbar"
             android:layout_marginHorizontal="17dp"
             android:visibility="gone"
             android:layout_width="match_parent"
@@ -121,7 +121,7 @@
 
 
     <FrameLayout
-            android:id="@+id/main_group"
+            android:id="@+id/fl_group"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
@@ -129,13 +129,13 @@
 
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/swipeRefresh"
+                android:id="@+id/srl_swipeRefresh"
                 android:layout_marginTop="55dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
+                    android:id="@+id/rv_recyclerView"
                     android:layout_width="match_parent"
                     android:visibility="gone"
                     android:layout_height="match_parent" />
@@ -143,7 +143,7 @@
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <HorizontalScrollView
-                android:id="@+id/scrollView"
+                android:id="@+id/sv_scrollView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="19dp"
@@ -152,7 +152,7 @@
                 android:layout_marginHorizontal="17dp">
 
             <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/chip_group"
+                    android:id="@+id/cp_chips"
                     android:layout_width="wrap_content"
                     android:layout_height="34dp"
                     android:orientation="horizontal"
@@ -161,15 +161,6 @@
                     app:chipSpacingHorizontal="12dp"
                     app:singleLine="true" />
         </HorizontalScrollView>
-
-        <TextView
-                android:id="@+id/tv_no_data"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                android:textSize="20sp"
-                tools:text="@string/no_internet_connection" />
     </FrameLayout>
 
 

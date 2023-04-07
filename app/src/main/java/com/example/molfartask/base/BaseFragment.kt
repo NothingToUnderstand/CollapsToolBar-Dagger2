@@ -1,12 +1,10 @@
 package com.example.molfartask.base
 
 import android.content.Context
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.HorizontalScrollView
 import android.widget.Toast
 import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
@@ -24,6 +22,7 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding>(
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
 
     private var _binding: VB? = null
     protected val binding get() = _binding!!
@@ -58,16 +57,4 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding>(
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
-}
-
-inline fun <reified T : View> HorizontalScrollView.scrollToPosition(
-    id: Int?) {
-    val view = id?.let { findViewById<T>(it) } ?: return
-    val leftEdgePx = view.left
-    val screenCenterPx = Resources.getSystem().displayMetrics.widthPixels / 2
-    val scrollPx = if (leftEdgePx < screenCenterPx) 0
-    else leftEdgePx - screenCenterPx + view.width / 2
-    this.post {
-        this.smoothScrollTo(scrollPx, view.top)
-    }
 }

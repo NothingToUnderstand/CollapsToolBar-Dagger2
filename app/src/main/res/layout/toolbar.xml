@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_marginHorizontal="17dp"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <ImageButton
+            android:id="@+id/btn_info2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/info"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:contentDescription="@string/button_info" />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/good_morning"
+            android:fontFamily="@font/gilroy_bold"
+            android:textFontWeight="600"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/btn_search2"
+            app:layout_constraintStart_toEndOf="@+id/btn_info2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageButton
+            android:id="@+id/btn_search2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/search"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/button_search" />
+</androidx.constraintlayout.widget.ConstraintLayout>
