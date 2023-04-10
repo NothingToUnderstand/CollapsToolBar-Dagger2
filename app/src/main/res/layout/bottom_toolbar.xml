@@ -5,6 +5,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white">
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ECECEC"
+            app:layout_constraintTop_toTopOf="parent"/>
 
     <LinearLayout
             android:id="@+id/subliminals_container"
@@ -19,6 +24,8 @@
 
         <ImageButton
                 android:id="@+id/ib_subliminals"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 style="@style/Toolbar.Button.Bottom"
                 android:src="@drawable/headphones"
                 android:contentDescription="@string/icon_subliminals" />
@@ -44,6 +51,8 @@
 
         <ImageButton
                 android:id="@+id/ib_favourites"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 style="@style/Toolbar.Button.Bottom"
                 android:src="@drawable/heart"
                 android:contentDescription="@string/icon_favourites" />
@@ -69,6 +78,8 @@
 
         <ImageButton
                 android:id="@+id/ib_journal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 style="@style/Toolbar.Button.Bottom"
                 android:src="@drawable/notes"
                 android:contentDescription="@string/icon_journal" />

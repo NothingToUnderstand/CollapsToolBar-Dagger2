@@ -2,16 +2,20 @@
 <resources>
 
     <style name="Chips.ScrollView" parent="Widget.MaterialComponents.Chip.Choice">
-        <item name="android:textSize">12sp</item>
-        <item name="android:textAlignment">center</item>
-        <item name="android:fontFamily">@font/gilroy_semibold</item>
-        <item name="android:textFontWeight">600</item>
         <item name="chipCornerRadius">7dp</item>
         <item name="ensureMinTouchTargetSize">false</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="chipBackgroundColor">@color/chip_background_color</item>
-        <item name="android:textColor">@color/chip_text_color</item>
         <item name="android:checkable">true</item>
+        <item name="android:textAppearance">@style/Chips.ScrollView.Text</item>
+        <item name="android:textColor">@color/chip_text_color</item>
+    </style>
+
+    <style name="Chips.ScrollView.Text" parent="">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:fontFamily">@font/gilroy_semibold</item>
+        <item name="android:textFontWeight">600</item>
     </style>
 </resources>

@@ -5,6 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
+        android:background="@drawable/home"
         tools:context=".presentation.subliminal.fragment.SubliminalFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -81,45 +82,6 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_upperToolbar"
-            android:layout_marginHorizontal="17dp"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <ImageButton
-                android:id="@+id/btn_info2"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/info"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:contentDescription="@string/button_info" />
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/good_morning"
-                android:fontFamily="@font/gilroy_bold"
-                android:textFontWeight="600"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toStartOf="@+id/btn_search2"
-                app:layout_constraintStart_toEndOf="@+id/btn_info2"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
-
-        <ImageButton
-                android:id="@+id/btn_search2"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/search"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:contentDescription="@string/button_search" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     <FrameLayout
             android:id="@+id/fl_group"
             android:layout_width="match_parent"
@@ -131,6 +93,7 @@
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/srl_swipeRefresh"
                 android:layout_marginTop="55dp"
+                android:layout_marginBottom="82dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -149,7 +112,7 @@
                 android:layout_marginTop="19dp"
                 android:scrollbars="none"
                 android:background="@android:color/transparent"
-                android:layout_marginHorizontal="17dp">
+                android:layout_marginStart="17dp">
 
             <com.google.android.material.chip.ChipGroup
                     android:id="@+id/cp_chips"

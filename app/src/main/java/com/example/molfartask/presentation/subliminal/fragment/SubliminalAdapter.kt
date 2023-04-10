@@ -3,6 +3,7 @@ package com.example.molfartask.presentation.subliminal.fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.MarginLayoutParams
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
@@ -24,7 +25,7 @@ class SubliminalAdapter : RecyclerView.Adapter<SubliminalViewHolder>() {
     override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: SubliminalViewHolder, position: Int) {
-        holder.bind(dataList[position])
+        holder.bind(dataList, position)
     }
 
     fun setData(list: List<Record>) {
@@ -40,11 +41,16 @@ class SubliminalViewHolder(private val view: View) : RecyclerView.ViewHolder(vie
     private val subtitle: TextView = view.findViewById(R.id.subliminal_subtitle)
     private val image: ImageView = view.findViewById(R.id.image)
 
-    fun bind(record: Record) {
-        title.text = record.field.title
-        subtitle.text = record.field.about
-        record.field.image.firstOrNull()?.let {
+    fun bind(record: MutableList<Record>, position: Int) {
+
+        title.text = record[position].field.title
+        subtitle.text = record[position].field.subTitle
+        record[position].field.image.firstOrNull()?.let {
             Glide.with(view).load(it.url).into(image)
+        }
+        if (position == record.size - 1) {
+            (view.layoutParams as MarginLayoutParams).bottomMargin = 20
+            view.requestLayout()
         }
     }
 }

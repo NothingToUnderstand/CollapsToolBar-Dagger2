@@ -45,12 +45,6 @@ class SubliminalFragment : BaseFragment<SubliminalViewModel, FragmentSubliminals
         btnSearch.setOnClickListener {
             makeToast(getString(R.string.coming_soon))
         }
-        btnSearch2.setOnClickListener {
-            makeToast(getString(R.string.coming_soon))
-        }
-        btnInfo2.setOnClickListener {
-            makeToast(getString(R.string.coming_soon))
-        }
         btnInfo.setOnClickListener {
             makeToast(getString(R.string.coming_soon))
         }
@@ -74,10 +68,10 @@ class SubliminalFragment : BaseFragment<SubliminalViewModel, FragmentSubliminals
                 scrollRange = barLayout?.totalScrollRange!!
             }
             if (scrollRange + verticalOffset == 0) {
-                binding.clUpperToolbar.isVisible = true
+//                binding.clUpperToolbar.isVisible = true
                 isShow = true
             } else if (isShow) {
-                binding.clUpperToolbar.isVisible = false
+//                binding.clUpperToolbar.isVisible = false
                 isShow = false
             }
         }

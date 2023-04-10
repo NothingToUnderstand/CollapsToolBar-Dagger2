@@ -9,4 +9,6 @@ data class Field(
     val id: Int,
     val image: List<Image>,
     val title: String,
+    @SerializedName("intention")
+    val subTitle:String
 )
