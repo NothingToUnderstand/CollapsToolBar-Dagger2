@@ -12,5 +12,6 @@
     <color name="text_subliminal_subtitle">#8A8E9A</color>
     <color name="text_subtitle">#415871</color>
     <color name="chips">#F6F9FA</color>
+    <color name="transparent">@android:color/transparent</color>
 
   </resources>

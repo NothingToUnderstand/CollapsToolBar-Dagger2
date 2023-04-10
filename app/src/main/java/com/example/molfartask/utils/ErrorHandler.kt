@@ -9,6 +9,6 @@ class ErrorHandler @Inject constructor(
 
     fun getNotifierLiveData() = notifierLiveData
     fun sendNotifier(t: Throwable) {
-        notifierLiveData.value = t.message
+        notifierLiveData.postValue(t.message)
     }
 }

@@ -30,6 +30,8 @@ abstract class RemoteModule {
     companion object {
         @Provides
         fun getHeaderInterceptor(): HeaderInterceptor = HeaderInterceptor()
+        @Provides
+        fun getNotSuccessfulResponseInterceptor(): NotSuccessfulResponseInterceptor = NotSuccessfulResponseInterceptor()
 
         @Provides
         @Singleton

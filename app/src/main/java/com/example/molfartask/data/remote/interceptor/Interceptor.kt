@@ -5,25 +5,26 @@ import com.example.molfartask.data.remote.manager.NetworkManager
 import com.example.molfartask.data.remote.manager.exception.NetworkConnectionException
 import com.example.molfartask.data.remote.manager.exception.NotSuccessfulResponseException
 import com.example.molfartask.data.remote.manager.exception.ServerNotRespondingException
-import com.example.molfartask.utils.ResourceManager
+import com.example.molfartask.utils.*
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
 import java.net.UnknownHostException
 import javax.inject.Inject
 
+
+private const val AUTHORIZATION = "Authorization"
 class HeaderInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain) =
         chain.request().newBuilder()
             .apply {
-                addHeader("Authorization", BuildConfig.API_KEY)
+                addHeader(AUTHORIZATION, BuildConfig.API_KEY)
             }.build()
             .run { chain.proceed(this) }
 }
 
 class NetWorkExceptionInterceptor @Inject constructor(
-    private val networkManager: NetworkManager,
-    private val resourceManager: ResourceManager
+    private val networkManager: NetworkManager
 ) : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -31,9 +32,9 @@ class NetWorkExceptionInterceptor @Inject constructor(
             chain.proceed(chain.request())
         } catch (exc: UnknownHostException) {
             throw if (networkManager.checkConnection()) {
-                ServerNotRespondingException(resourceManager)
+                ServerNotRespondingException(SERVER_NOT_RESPONDING)
             } else {
-                NetworkConnectionException(resourceManager)
+                NetworkConnectionException(NO_INTERNET_CONNECTION)
             }
         } catch (exc: IOException) {
             throw exc
@@ -42,13 +43,11 @@ class NetWorkExceptionInterceptor @Inject constructor(
     }
 }
 
-class NotSuccessfulResponseInterceptor @Inject constructor(
-    private val resourceManager: ResourceManager
-) : Interceptor {
+class NotSuccessfulResponseInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         return chain.proceed(chain.request()).also {
             if (!it.isSuccessful) {
-                throw NotSuccessfulResponseException(resourceManager)
+                throw NotSuccessfulResponseException(RESPONSE_NOT_SUCCESSFUL)
             }
         }
     }

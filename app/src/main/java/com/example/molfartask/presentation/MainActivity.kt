@@ -23,6 +23,12 @@ class MainActivity : BaseActivity() {
     }
 
     private fun setToolbars() {
+        findViewById<ImageButton>(R.id.btn_search).setOnClickListener {
+            makeToast(getString(R.string.coming_soon))
+        }
+        findViewById<ImageButton>(R.id.btn_info).setOnClickListener {
+            makeToast(getString(R.string.coming_soon))
+        }
         findViewById<ImageButton>(R.id.ib_favourites).setOnClickListener {
             makeToast(getString(R.string.coming_soon))
 

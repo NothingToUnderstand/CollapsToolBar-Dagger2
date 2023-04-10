@@ -2,6 +2,9 @@ package com.example.molfartask.presentation.subliminal.fragment
 
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.molfartask.R
@@ -21,7 +24,7 @@ class SubliminalFragment : BaseFragment<SubliminalViewModel, FragmentSubliminals
 
     override val viewModel: SubliminalViewModel by inject()
 
-    private var category = ""
+    private var category:String? = null
     private var firstCategory = true
     private val categories = mutableSetOf<String>()
 
@@ -42,12 +45,6 @@ class SubliminalFragment : BaseFragment<SubliminalViewModel, FragmentSubliminals
     }
 
     private fun setListenersToViews() = with(binding) {
-        btnSearch.setOnClickListener {
-            makeToast(getString(R.string.coming_soon))
-        }
-        btnInfo.setOnClickListener {
-            makeToast(getString(R.string.coming_soon))
-        }
 
         srlSwipeRefresh.setOnRefreshListener {
             viewModel.getRecords(category)
@@ -61,6 +58,9 @@ class SubliminalFragment : BaseFragment<SubliminalViewModel, FragmentSubliminals
             viewModel.filterRecordsByCategory(category)
         }
 
+        /*
+        * FIXME:Only for fixing toolbar after writing correct collapsing view -> remove
+        * */
         var isShow = true
         var scrollRange = -1
         ablAppbar.addOnOffsetChangedListener { barLayout, verticalOffset ->
@@ -68,10 +68,10 @@ class SubliminalFragment : BaseFragment<SubliminalViewModel, FragmentSubliminals
                 scrollRange = barLayout?.totalScrollRange!!
             }
             if (scrollRange + verticalOffset == 0) {
-//                binding.clUpperToolbar.isVisible = true
+                toolbarCollapse(true)
                 isShow = true
             } else if (isShow) {
-//                binding.clUpperToolbar.isVisible = false
+                toolbarCollapse(false)
                 isShow = false
             }
         }
@@ -122,6 +122,24 @@ class SubliminalFragment : BaseFragment<SubliminalViewModel, FragmentSubliminals
             firstCategory = false
         }
 
+    }
+
+    /*
+   * FIXME:Only for fixing toolbar after writing correct collapsing view -> remove
+   * */
+    private fun toolbarCollapse(collapsed: Boolean) {
+        val backgroundColor = if (collapsed) {
+            ContextCompat.getColor(requireContext(), R.color.white)
+        } else {
+            ContextCompat.getColor(requireContext(), R.color.transparent)
+        }
+        binding.ctlCollaps.setBackgroundColor(backgroundColor)
+        binding.textContainer.isInvisible = collapsed
+        requireActivity().apply {
+            window.statusBarColor = backgroundColor
+            findViewById<TextView>(R.id.tv_title).isVisible = collapsed
+            findViewById<View>(R.id.top_toolbar).setBackgroundColor(backgroundColor)
+        }
     }
 
     companion object {

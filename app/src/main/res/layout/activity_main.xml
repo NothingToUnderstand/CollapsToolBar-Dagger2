@@ -4,16 +4,25 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
     <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fcv_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".presentation.MainActivity"
-            android:id="@+id/fcv_container" />
+            tools:context=".presentation.MainActivity"/>
+
+    <include
+            android:id="@+id/top_toolbar"
+            layout="@layout/top_toolbar"
+            android:layout_marginTop="35dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top" />
 
     <include
             android:id="@+id/bottom_toolbar"
             layout="@layout/bottom_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"/>
+            android:layout_gravity="bottom" />
 </FrameLayout>

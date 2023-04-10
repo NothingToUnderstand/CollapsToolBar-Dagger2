@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class Subliminal(
     @SerializedName("records")
-    val record: List<Record>?
+    val record: List<Record> = emptyList()
 )

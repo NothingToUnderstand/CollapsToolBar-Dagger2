@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">MolfarTask</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="subliminals">Subliminals</string>
     <string name="icon_favourites">icon favourites</string>
     <string name="icon_subliminals">icon subliminals</string>
@@ -9,15 +7,11 @@
     <string name="favorites">Favorites</string>
     <string name="journal">Journal</string>
     <string name="image">image</string>
-    <string name="no_internet_connection">No Internet Connection</string>
     <string name="coming_soon">Coming in full version</string>
     <string name="button_info">button info</string>
     <string name="button_search">button search</string>
     <string name="good_morning">Good morning!</string>
     <string name="your_daily_dose_of_subliminals_is_ready">Your daily dose of subliminals is ready</string>
     <string name="all_together">all together</string>
-    <string name="response_not_successful">response is not successful</string>
     <string name="no_data">no data</string>
-    <string name="unknown_error">unknown_error</string>
-    <string name="server_not_responding">server not responding</string>
 </resources>
