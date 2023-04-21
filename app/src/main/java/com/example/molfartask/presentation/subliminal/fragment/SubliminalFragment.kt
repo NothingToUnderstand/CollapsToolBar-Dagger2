@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.molfartask.R
 import com.example.molfartask.base.BaseFragment
 import com.example.molfartask.data.entity.Record
@@ -21,10 +22,11 @@ class SubliminalFragment : BaseFragment<SubliminalViewModel, FragmentSubliminals
     FragmentSubliminalsBinding::inflate
 ) {
     private lateinit var rvAdapter: SubliminalAdapter
+    private lateinit var rvAdapterImage: BackgroundImageAdapter
 
     override val viewModel: SubliminalViewModel by inject()
 
-    private var category:String? = null
+    private var category: String? = null
     private var firstCategory = true
     private val categories = mutableSetOf<String>()
 
@@ -32,13 +34,27 @@ class SubliminalFragment : BaseFragment<SubliminalViewModel, FragmentSubliminals
         super.onViewCreated(view, savedInstanceState)
 
         rvAdapter = SubliminalAdapter()
+        rvAdapterImage = BackgroundImageAdapter()
 
         viewModel.getRecords()
+
+        binding.rvBackgroundImage.apply {
+            adapter = rvAdapterImage
+            layoutManager = LinearLayoutManager(requireContext())
+
+        }
 
         binding.rvRecyclerView.apply {
             adapter = rvAdapter
             layoutManager = LinearLayoutManager(requireContext())
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    binding.rvBackgroundImage.scrollBy(dx, dy)
+                }
+            })
         }
+
 
         setListenersToViews()
         observeViewModel()
@@ -58,9 +74,7 @@ class SubliminalFragment : BaseFragment<SubliminalViewModel, FragmentSubliminals
             viewModel.filterRecordsByCategory(category)
         }
 
-        /*
-        * FIXME:Only for fixing toolbar after writing correct collapsing view -> remove
-        * */
+
         var isShow = true
         var scrollRange = -1
         ablAppbar.addOnOffsetChangedListener { barLayout, verticalOffset ->
@@ -124,9 +138,6 @@ class SubliminalFragment : BaseFragment<SubliminalViewModel, FragmentSubliminals
 
     }
 
-    /*
-   * FIXME:Only for fixing toolbar after writing correct collapsing view -> remove
-   * */
     private fun toolbarCollapse(collapsed: Boolean) {
         val backgroundColor = if (collapsed) {
             ContextCompat.getColor(requireContext(), R.color.white)

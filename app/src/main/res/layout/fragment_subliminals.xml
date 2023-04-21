@@ -5,9 +5,15 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/home"
+        android:background="@android:color/transparent"
         tools:context=".presentation.subliminal.fragment.SubliminalFragment"
         android:fitsSystemWindows="true">
+
+<androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_background_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/back_ground_image"/>
 
     <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/abl_appbar"
